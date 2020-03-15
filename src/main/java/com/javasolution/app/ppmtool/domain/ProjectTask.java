@@ -21,6 +21,8 @@ public class ProjectTask {
 
     private String acceptanceCriteria;
 
+    private String status;
+
     private Integer priority;
 
     private Date dueDate;
@@ -119,6 +121,14 @@ public class ProjectTask {
 
     public void setBacklog(Backlog backlog) {
         this.backlog = backlog;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @PrePersist
