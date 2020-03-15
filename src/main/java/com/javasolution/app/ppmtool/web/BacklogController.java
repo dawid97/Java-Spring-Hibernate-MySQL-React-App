@@ -1,5 +1,6 @@
 package com.javasolution.app.ppmtool.web;
 
+import com.javasolution.app.ppmtool.domain.Project;
 import com.javasolution.app.ppmtool.domain.ProjectTask;
 import com.javasolution.app.ppmtool.services.MapValidationErrorService;
 import com.javasolution.app.ppmtool.services.ProjectTaskService;
@@ -31,5 +32,10 @@ public class BacklogController {
         ProjectTask projectTask1 = projectTaskService.addProjectTask(backlog_id,projectTask);
 
         return new ResponseEntity<ProjectTask>(projectTask1, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{backlog_id}")
+    public Iterable<ProjectTask> getProjectBacklog(@PathVariable String backlog_id){
+        return projectTaskService.findBacklogById(backlog_id);
     }
 }
