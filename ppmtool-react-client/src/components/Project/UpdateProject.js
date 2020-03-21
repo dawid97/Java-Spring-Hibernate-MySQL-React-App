@@ -108,14 +108,13 @@ class UpdateProject extends Component {
                 </div>
                 <div className="form-group">
                   <textarea
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.description
+                    })}
                     placeholder="Project Description"
                     name="description"
                     value={this.state.description}
                     onChange={this.onChange}
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.description
-                    })}
                   />
                   {errors.description && (
                     <div className="invalid-feedback">{errors.description}</div>
