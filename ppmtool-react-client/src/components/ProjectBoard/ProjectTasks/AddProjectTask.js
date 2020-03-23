@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import classnames from "classnames";
+import { addProjectTask } from "../../../actions/backlogActions";
+import PropTypes from "prop-types";
 
 class AddProjectTask extends Component {
   render() {
@@ -79,4 +83,6 @@ class AddProjectTask extends Component {
   }
 }
 
-export default AddProjectTask;
+AddProjectTask.propTypes = {};
+
+export default connect(null, { addProjectTask })(AddProjectTask);
