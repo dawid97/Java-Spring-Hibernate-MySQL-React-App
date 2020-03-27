@@ -7,6 +7,7 @@ import com.javasolution.app.ppmtool.exceptions.ProjectNotFoundException;
 import com.javasolution.app.ppmtool.repositories.BacklogRepository;
 import com.javasolution.app.ppmtool.repositories.ProjectRepository;
 import com.javasolution.app.ppmtool.repositories.ProjectTaskRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -91,7 +92,9 @@ public class ProjectTaskService {
 
     public ProjectTask updateByProjectSequence(ProjectTask updatedTask,String backlog_id, String pt_id){
         ProjectTask projectTask = findPTByProjectSequence(backlog_id,pt_id);
-        projectTask=updatedTask;
+        //ModelMapper mapper = new ModelMapper();
+       // mapper.map(projectTask,updatedTask);
+       projectTask=updatedTask;
         return projectTaskRepository.save(projectTask);
     }
 
