@@ -1,0 +1,67 @@
+[1mdiff --git a/src/main/java/com/javasolution/app/ppmtool/services/ProjectTaskService.java b/src/main/java/com/javasolution/app/ppmtool/services/ProjectTaskService.java[m
+[1mindex 50c0306..61e7409 100644[m
+[1m--- a/src/main/java/com/javasolution/app/ppmtool/services/ProjectTaskService.java[m
+[1m+++ b/src/main/java/com/javasolution/app/ppmtool/services/ProjectTaskService.java[m
+[36m@@ -23,7 +23,6 @@[m [mpublic class ProjectTaskService {[m
+     private ProjectRepository projectRepository;[m
+ [m
+     public ProjectTask addProjectTask(String projectIdentifier,ProjectTask projectTask){[m
+[31m-[m
+         try{[m
+             //exceptions: Project not found[m
+             //PTs to be added to a specific project, project != null, Backlog exists[m
+[36m@@ -41,23 +40,23 @@[m [mpublic class ProjectTaskService {[m
+             backlog.setPTSequence(backlogSequence);[m
+ [m
+             //add sequence to ProjectTask[m
+[31m-            projectTask.setProjectSequence(projectIdentifier+"-"+backlogSequence);[m
+[32m+[m[32m            projectTask.setProjectSequence(projectIdentifier+ "-"+backlogSequence);[m
+             projectTask.setProjectIdentifier(projectIdentifier);[m
+ [m
+             //initial priority when priority is null[m
+[31m-            if(projectTask.getPriority() == 0 || projectTask.getPriority() == null){[m
+[32m+[m[32m            if (projectTask.getPriority() == 0 || projectTask.getPriority() == null){[m
+                 projectTask.setPriority(3);[m
+             }[m
+ [m
+             //Initial status when status is null[m
+[31m-            if(projectTask.getStatus()=="" || projectTask.getStatus() == null){[m
+[32m+[m[32m            if (projectTask.getStatus() == "" || projectTask.getStatus() == null){[m
+                 projectTask.setStatus("TO_DO");[m
+             }[m
+[31m-[m
+[31m-            return projectTaskRepository.save(projectTask);[m
+         }catch(Exception e){[m
+             throw new ProjectNotFoundException("Project not Found");[m
+         }[m
+[32m+[m
+[32m+[m[32m            return projectTaskRepository.save(projectTask);[m
+     }[m
+ [m
+     public Iterable<ProjectTask> findBacklogById(String id) {[m
+[1mdiff --git a/src/main/java/com/javasolution/app/ppmtool/web/BacklogController.java b/src/main/java/com/javasolution/app/ppmtool/web/BacklogController.java[m
+[1mindex 28c94bd..5a0796a 100644[m
+[1m--- a/src/main/java/com/javasolution/app/ppmtool/web/BacklogController.java[m
+[1m+++ b/src/main/java/com/javasolution/app/ppmtool/web/BacklogController.java[m
+[36m@@ -11,6 +11,7 @@[m [mimport org.springframework.validation.BindingResult;[m
+ import org.springframework.web.bind.annotation.*;[m
+ [m
+ import javax.validation.Valid;[m
+[32m+[m[32mimport java.security.Principal;[m
+ [m
+ @RestController[m
+ @RequestMapping("/api/backlog")[m
+[36m@@ -25,11 +26,11 @@[m [mpublic class BacklogController {[m
+ [m
+     @PostMapping("/{backlog_id}")[m
+     public ResponseEntity<?> addProjectTaskToBacklog(@Valid @RequestBody ProjectTask projectTask,[m
+[31m-                                                     BindingResult result, @PathVariable String backlog_id){[m
+[32m+[m[32m                                                     BindingResult result, @PathVariable String backlog_id, Principal principal){[m
+         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);[m
+         if(errorMap!=null) return errorMap;[m
+ [m
+[31m-        ProjectTask projectTask1 = projectTaskService.addProjectTask(backlog_id,projectTask);[m
+[32m+[m[32m        ProjectTask projectTask1 = projectTaskService.addProjectTask(backlog_id,projectTask,principal.getName());[m
+ [m
+         return new ResponseEntity<ProjectTask>(projectTask1, HttpStatus.CREATED);[m
+     }[m
