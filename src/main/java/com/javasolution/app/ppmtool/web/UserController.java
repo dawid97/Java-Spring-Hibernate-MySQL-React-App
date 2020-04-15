@@ -7,6 +7,10 @@ import com.javasolution.app.ppmtool.security.JwtTokenProvider;
 import com.javasolution.app.ppmtool.services.MapValidationErrorService;
 import com.javasolution.app.ppmtool.services.UserService;
 import com.javasolution.app.ppmtool.validator.UserValidator;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ResponseHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +46,7 @@ public class UserController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
